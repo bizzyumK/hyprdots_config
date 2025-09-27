@@ -14,10 +14,10 @@ exec = gsettings set org.gnome.desktop.interface color-scheme $COLOR_SCHEME
 
 general {
     gaps_in = 0 
-    gaps_out = 0 
-    border_size = 1 
-    col.active_border = rgba(f1d8a5ff) 
-    col.inactive_border = rgba(86aaeccc) rgba(93cee9cc) 45deg
+    gaps_out = 20 
+    border_size = 2 
+    col.active_border = rgba(95d3afff) rgba(93cee9cc) 45deg 
+    /* col.inactive_border = rgba(86aaeccc) rgba(93cee9cc) 45deg */
     layout = dwindle
     resize_on_border = true
 }
@@ -30,17 +30,16 @@ group {
 }
 
 decoration {
-    rounding = 0 
-    shadow:enabled = false
+    rounding = 1 
 
-    /* blur { */
-    /*     enabled = false  */
-    /*     size = 4  */
-    /*     passes = 1  */
-    /*     new_optimizations = on */
-    /*     ignore_opacity = on */
-    /*     xray = false */
-    /* } */
+    blur {
+        enabled = true 
+        size = 4 
+        passes = 2 
+        new_optimizations = on
+        ignore_opacity = on
+        xray = false
+    }
 }
 
-#layerrule = unset,waybar
+layerrule = unset,waybar
