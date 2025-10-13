@@ -1,5 +1,5 @@
 # =========================
-# ⚡ ZSH + Powerlevel10k Optimized Config (No Oh-My-Zsh)
+# ⚡ ZSH + Powerlevel10k Optimized Config
 # =========================
 
 # -------------------------
@@ -38,15 +38,6 @@ if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
 fi
 
 # -------------------------
-# 🛠 AUR Helper Detection
-# -------------------------
-if pacman -Qi yay &>/dev/null; then
-  aurhelper="yay"
-elif pacman -Qi paru &>/dev/null; then
-  aurhelper="paru"
-fi
-
-# -------------------------
 # 🧰 Custom Functions
 # -------------------------
 
@@ -62,6 +53,23 @@ in() {
   done
   (( ${#arch[@]} )) && sudo pacman -S "${arch[@]}"
   (( ${#aur[@]} )) && ${aurhelper} -S "${aur[@]}"
+}
+
+# Update all system packages (official + AUR)
+update() {
+    echo "Updating official packages..."
+    sudo pacman -Syu --noconfirm
+    
+    # Check which AUR helper is available
+    if command -v yay &>/dev/null; then
+        echo "Updating AUR packages with yay..."
+        yay -Syu --noconfirm
+    elif command -v paru &>/dev/null; then
+        echo "Updating AUR packages with paru..."
+        paru -Syu --noconfirm
+    else
+        echo "No AUR helper found. Skipping AUR packages."
+    fi
 }
 
 # Fuzzy change directory
@@ -97,9 +105,6 @@ alias doc='cd ~/Documents'
 # -------------------------
 bindkey -v  # Vi mode (optional — comment out if you prefer emacs mode)
 
-# Optional: Accept autosuggestions with Ctrl+Space (more reliable in vi mode)
-bindkey '^ ' autosuggest-accept
-
 # -------------------------
 # 🌟 Extras
 # -------------------------
@@ -116,4 +121,3 @@ compinit
 
 # Case-insensitive tab completion (so down<Tab> → Downloads)
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-
