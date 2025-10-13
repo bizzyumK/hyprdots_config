@@ -87,13 +87,10 @@ command_not_found_handler() {
 # 🧭 Aliases
 # -------------------------
 alias ls='eza -1 --icons=auto'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias mkdir='mkdir -p'
 alias fe='exit'
 alias home='cd ~'
+alias down='cd ~/Downloads'
+alias doc='cd ~/Documents'
 
 # -------------------------
 # 📝 Keybindings
@@ -113,12 +110,10 @@ SAVEHIST=5000
 HISTFILE=~/.zsh_history
 setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY
 
-# Enable command correction
-setopt CORRECT
-
-# Autocd: just type folder name to cd
-setopt AUTO_CD
-
 # Completion system
 autoload -Uz compinit
 compinit
+
+# Case-insensitive tab completion (so down<Tab> → Downloads)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
