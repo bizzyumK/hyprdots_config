@@ -1,90 +1,124 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# =========================
+# ⚡ ZSH + Powerlevel10k Optimized Config (No Oh-My-Zsh)
+# =========================
+
+# -------------------------
+# 🚀 Powerlevel10k Instant Prompt (MUST stay at top)
+# -------------------------
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Prevent autoloading from unwanted custom function directories
-fpath=(${fpath:#/home/bigyam/.config/zsh/functions})
-
-# Oh-my-zsh installation path
-ZSH=/usr/share/oh-my-zsh/
-
-# Theme
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-
-# Plugins
-plugins=(git zsh-autosuggestions)
-source $ZSH/oh-my-zsh.sh
-
-# Detect AUR helper
-if pacman -Qi yay &>/dev/null; then
-   aurhelper="yay"
-elif pacman -Qi paru &>/dev/null; then
-   aurhelper="paru"
-fi
-
-# Install function
-function in {
-    local -a arch=() aur=()
-    for pkg in "$@"; do
-        if pacman -Si "$pkg" &>/dev/null; then
-            arch+=("$pkg")
-        else
-            aur+=("$pkg")
-        fi
-    done
-
-    (( ${#arch[@]} )) && sudo pacman -S "${arch[@]}"
-    (( ${#aur[@]} )) && ${aurhelper} -S "${aur[@]}"
-}
-
-# Aliases
-alias c='clear'
-alias l='eza -lh --icons=auto'
-alias ls='eza -1 --icons=auto'
-alias ll='eza -lha --icons=auto --sort=name --group-directories-first'
-alias ld='eza -lhD --icons=auto'
-alias lt='eza --icons=auto --tree'
-alias un='$aurhelper -Rns'
-alias up='$aurhelper -Syu'
-alias pl='$aurhelper -Qs'
-alias pa='$aurhelper -Ss'
-alias pc='$aurhelper -Sc'
-alias po='$aurhelper -Qtdq | $aurhelper -Rns -'
-alias vc='code'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias .5='cd ../../../../..'
-alias mkdir='mkdir -p'
-
-# Add this to your .zshrc before sourcing p10k
-typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-
-# Powerlevel10k config
-[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
-# Fast command not found handler (disables auto search delay)
-unset -f command_not_found_handler >/dev/null 2>&1 || true
-command_not_found_handler() {
-    echo "zsh: command not found: $1"
-    return 127
-}
-# Vi mode
-bindkey -v
+# -------------------------
+# 🌍 Environment Variables
+# -------------------------
 export PATH="$HOME/bin:$PATH"
 
-# Fuzzy directory search
+# -------------------------
+# 🎨 Theme: Powerlevel10k
+# -------------------------
+[[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]] && \
+  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# -------------------------
+# 🧠 Plugins (Manual)
+# -------------------------
+
+# Autosuggestions (must be before syntax highlighting)
+if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'  # Dim gray
+fi
+
+# Syntax highlighting (must be last)
+if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# -------------------------
+# 🛠 AUR Helper Detection
+# -------------------------
+if pacman -Qi yay &>/dev/null; then
+  aurhelper="yay"
+elif pacman -Qi paru &>/dev/null; then
+  aurhelper="paru"
+fi
+
+# -------------------------
+# 🧰 Custom Functions
+# -------------------------
+
+# Install packages from repo or AUR
+in() {
+  local -a arch=() aur=()
+  for pkg in "$@"; do
+    if pacman -Si "$pkg" &>/dev/null; then
+      arch+=("$pkg")
+    else
+      aur+=("$pkg")
+    fi
+  done
+  (( ${#arch[@]} )) && sudo pacman -S "${arch[@]}"
+  (( ${#aur[@]} )) && ${aurhelper} -S "${aur[@]}"
+}
+
+# Fuzzy change directory
 fcd() {
   local dir
-  dir=$(find . -type d | fzf) && cd "$dir"
+  dir=$(find . -type d 2>/dev/null | fzf) && cd "$dir"
 }
-# Fuzzy file search
+
+# Fuzzy file search and open in nvim
 ff() {
   local file
   file=$(find . -type f 2>/dev/null | fzf) || return
   nvim "$file"
 }
+
+# Command not found handler
+command_not_found_handler() {
+  echo "zsh: command not found: $1"
+  return 127
+}
+
+# -------------------------
+# 🧭 Aliases
+# -------------------------
+alias ls='eza -1 --icons=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias mkdir='mkdir -p'
+alias fe='exit'
+alias home='cd ~'
+
+# -------------------------
+# 📝 Keybindings
+# -------------------------
+bindkey -v  # Vi mode (optional — comment out if you prefer emacs mode)
+
+# Optional: Accept autosuggestions with Ctrl+Space (more reliable in vi mode)
+bindkey '^ ' autosuggest-accept
+
+# -------------------------
+# 🌟 Extras
+# -------------------------
+
+# Better history settings
+HISTSIZE=5000
+SAVEHIST=5000
+HISTFILE=~/.zsh_history
+setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY
+
+# Enable command correction
+setopt CORRECT
+
+# Autocd: just type folder name to cd
+setopt AUTO_CD
+
+# Completion system
+autoload -Uz compinit
+compinit
