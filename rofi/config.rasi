@@ -1,0 +1,8 @@
+configuration {
+  font: "JetBrainsMonoNL Nerd Font 12";
+  show-icons: true;
+  drun-display-format: "{name}";
+  modi: "drun,run";
+}
+
+@import "theme.rasi"

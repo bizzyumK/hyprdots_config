@@ -1,178 +1,135 @@
+@import "../omarchy/current/theme/waybar.css";
+
 * {
-    border: none;
-    border-radius: 0px;
-    font-family: "JetBrainsMono Nerd Font";
-    font-weight: bold;
-    font-size: 14px;
-    min-height: 10px;
+  border: none;
+  border-radius: 0px;
+
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 13px;
+
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+
 }
 
-@import "theme.css";
-
 window#waybar {
-    background: @bar-bg;
+  /* background: transparent; */
+  background: #1A1B26;
 }
 
 tooltip {
-    background: @main-bg;
-    color: @main-fg;
-    border-radius: 10px;
-    border-width: 0px;
+  background: @background;
+  border: 1px solid @bg3;
+  font-size: 12px;      /* Smaller text */
+  padding: 5px 7px;     /* Less padding = smaller popup */
+  border-radius: 6px; 
+}
+
+tooltip label {
+  color: @foreground;
+  padding: 6px;
+}
+
+#workspaces {
+  background-color: @background;
+  padding: 5px 3px;
+  margin: 0 0 0 12px;
+  border-radius: 6px;
+  color: @foreground;
 }
 
 #workspaces button {
-    box-shadow: none;
-	text-shadow: none;
-    padding: 0px;
-    border-radius: 12px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    margin-left: 0px;
-    padding-left: 4px;
-    padding-right: 4px;
-    margin-right: 0px;
-    color: @main-fg;
-    animation: ws_normal 20s ease-in-out 1;
+  padding: 0px 2px;
+  margin: 0px 3px;
+  border-radius: 6px;
+  color: @foreground;
 }
 
-#workspaces button.active {
-    background: @wb-act-bg;
-    color: @wb-act-fg;
-    margin-left: 4px;
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-right: 4px;
-    animation: ws_active 20s ease-in-out 1;
-    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
+#workspaces button.empty {
+  opacity: 0.5;
 }
 
-#workspaces button:hover {
-    background: @wb-hvr-bg;
-    color: @wb-hvr-fg;
-    animation: ws_hover 20s ease-in-out 1;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#taskbar button {
-    box-shadow: none;
-	text-shadow: none;
-    padding: 0px;
-    border-radius: 12px;
-    margin-top: 4px;
-    margin-bottom: 4px;
-    margin-left: 0px;
-    padding-left: 4px;
-    padding-right: 4px;
-    margin-right: 0px;
-    color: @wb-color;
-    animation: tb_normal 20s ease-in-out 1;
-}
-
-#taskbar button.active {
-    background: @wb-act-bg;
-    color: @wb-act-color;
-    margin-left: 4px;
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-right: 4px;
-    animation: tb_active 20s ease-in-out 1;
-    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#taskbar button:hover {
-    background: @wb-hvr-bg;
-    color: @wb-hvr-color;
-    animation: tb_hover 20s ease-in-out 1;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#tray menu * {
-    min-height: 16px
-}
-
-#tray menu separator {
-    min-height: 10px
-}
-
-#backlight,
-#battery,
+.modules-center,
+#tray-expander,
 #bluetooth,
-#custom-cava,
-#custom-cliphist,
-#clock,
-#custom-cpuinfo,
+#battery,
 #cpu,
-#custom-github_hyprdots,
-#custom-gpuinfo,
-#idle_inhibitor,
-#language,
-#memory,
-#mpris,
-#network,
-#custom-notifications,
-#custom-power,
-#privacy,
+#custom-weather,
 #pulseaudio,
-#custom-spotify,
-#taskbar,
-#custom-theme,
-#tray,
-#custom-updates,
-#custom-wallchange,
-#custom-wbar,
-#window,
-#workspaces,
-#custom-l_end,
-#custom-r_end,
-#custom-sl_end,
-#custom-sr_end,
-#custom-rl_end,
-#custom-rr_end {
-    color: @main-fg;
-    background: @main-bg;
-    opacity: 1;
-    margin: 5px 0px 5px 0px;
-    padding-left: 6px;
-    padding-right: 6px;
+#network,
+#clock,
+#custom-notification,
+#custom-omarchy,
+#backlight
+{
+  background-color: @background;
+  padding: 0 6px 0 6px;
+  border-radius: 6px;
 }
 
-#workspaces,
-#taskbar {
-    padding: 0px;
+.modules-center {
+  padding: 0 15 0 15;
 }
 
-#custom-r_end {
-    border-radius: 0px 28px 28px 0px;
-    margin-right: 12px;
-    padding-right: 4px;
+#custom-weather {
+  color:@foreground ;
 }
 
-#custom-l_end {
-    border-radius: 28px 0px 0px 28px;
-    margin-left: 12px;
-    padding-left: 4px;
+#clock{
+  color: @foreground;
 }
 
-#custom-sr_end {
-    border-radius: 0px;
-    margin-right: 12px;
-    padding-right: 4px;
+#custom-omarchy {
+  color: @foreground;
 }
 
-#custom-sl_end {
-    border-radius: 0px;
-    margin-left: 12px;
-    padding-left: 4px;
+#custom-notification {
+  color: @foreground;
+  margin: 0 6px 0 6px;
+  padding: 0 8 0 6;
 }
 
-#custom-rr_end {
-    border-radius: 0px 10px 10px 0px;
-    margin-right: 12px;
-    padding-right: 4px;
+#pulseaudio {
+  color: @foreground;
+  padding: 0 20 0 13;
 }
 
-#custom-rl_end {
-    border-radius: 10px 0px 0px 10px;
-    margin-left: 12px;
-    padding-left: 4px;
+
+
+#network {
+  color: @foreground;
+  padding: 0 20 0 13;
 }
+
+#battery {
+  color: @foreground;
+  margin-right: 4;
+}
+
+#bluetooth {
+  color: @foreground;
+}
+
+#cpu {
+  color : @foreground;
+}
+
+#tray-expander,#backlight{
+  color: @foreground;
+}
+
+#tray {
+  margin-left: 10px;
+}
+
+#custom-screenrecording-indicator {
+  min-width: 12px;
+  padding: 10 15 10 13;
+  font-size: 10px;
+}
+
+#custom-screenrecording-indicator.active {
+  color: @foreground;
+}
+
