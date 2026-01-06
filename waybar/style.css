@@ -1,135 +1,82 @@
 @import "../omarchy/current/theme/waybar.css";
 
 * {
-  border: none;
-  border-radius: 0px;
-
-  font-family: 'JetBrainsMono Nerd Font';
-  font-size: 13px;
-
-  min-height: 0;
-  padding: 0;
-  margin: 0;
-
+    background-color: @background;
+    color: @foreground;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: 'JetBrainsMono Nerf Font';
 }
 
-window#waybar {
-  /* background: transparent; */
-  background: #1A1B26;
+.modules-left {
+    margin-left: 8px;
 }
 
-tooltip {
-  background: @background;
-  border: 1px solid @bg3;
-  font-size: 12px;      /* Smaller text */
-  padding: 5px 7px;     /* Less padding = smaller popup */
-  border-radius: 6px; 
-}
-
-tooltip label {
-  color: @foreground;
-  padding: 6px;
+.modules-right {
+    margin-right: 8px;
 }
 
 #workspaces {
-  background-color: @background;
-  padding: 5px 3px;
-  margin: 0 0 0 12px;
-  border-radius: 6px;
-  color: @foreground;
+    margin-left: 10px;
 }
 
 #workspaces button {
-  padding: 0px 2px;
-  margin: 0px 3px;
-  border-radius: 6px;
-  color: @foreground;
+    all: initial;
+    padding: 0 10px;
+    margin: 0 1.5px;
+    min-width: 9px;
 }
 
 #workspaces button.empty {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
-.modules-center,
-#tray-expander,
-#bluetooth,
-#battery,
-#cpu,
-#custom-weather,
-#pulseaudio,
-#network,
-#clock,
-#custom-notification,
 #custom-omarchy,
-#backlight
-{
-  background-color: @background;
-  padding: 0 6px 0 6px;
-  border-radius: 6px;
+#custom-screenrecording-indicator,
+#custom-update {
+    min-width: 12px;
+    margin: 0 7.5px;
 }
 
-.modules-center {
-  padding: 0 15 0 15;
+tooltip {
+    padding: 2px;
 }
 
-#custom-weather {
-  color:@foreground ;
+#custom-update {
+    font-size: 10px;
 }
 
-#clock{
-  color: @foreground;
+#clock {
+    margin: 8.75px;
+    font-size: 15px;
 }
 
-#custom-omarchy {
-  color: @foreground;
-}
-
-#custom-notification {
-  color: @foreground;
-  margin: 0 6px 0 6px;
-  padding: 0 8 0 6;
-}
-
-#pulseaudio {
-  color: @foreground;
-  padding: 0 20 0 13;
-}
-
-
-
-#network {
-  color: @foreground;
-  padding: 0 20 0 13;
-}
-
-#battery {
-  color: @foreground;
-  margin-right: 4;
-}
-
-#bluetooth {
-  color: @foreground;
-}
-
-#cpu {
-  color : @foreground;
-}
-
-#tray-expander,#backlight{
-  color: @foreground;
-}
-
-#tray {
-  margin-left: 10px;
+.hidden {
+    opacity: 0;
 }
 
 #custom-screenrecording-indicator {
-  min-width: 12px;
-  padding: 10 15 10 13;
-  font-size: 10px;
+    min-width: 12px;
+    margin-left: 8.75px;
+    font-size: 10px;
 }
 
 #custom-screenrecording-indicator.active {
-  color: @foreground;
+    color: #a55555;
+}
+
+#tray-expander {
+    margin: 0px 10px;
+}
+
+#backlight,
+#bluetooth,
+#network,
+#pulseaudio,
+#cpu,
+#battery {
+    margin: 0px 14px;
+    font-size: 15px;
 }
 
