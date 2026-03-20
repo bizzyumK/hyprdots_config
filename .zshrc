@@ -36,10 +36,28 @@ fzf_file_widget() { ff; zle reset-prompt }
 zle -N fzf_file_widget
 bindkey '^P' fzf_file_widget
 
+# timer
+study2h() {
+  timer 1h && notify-send "Break time ☕"
+  timer 10m && notify-send "Back to work ⚡"
+  timer 1h && notify-send "Session complete 🎯"
+}
+
+alarm() {
+  if [ -z "$1" ]; then
+    echo "Usage: alarm HH:MM or 'now + 10 minutes'"
+    return 1
+  fi
+
+  echo "DISPLAY=:0 XDG_RUNTIME_DIR=/run/user/$(id -u) notify-send '⏰ Alarm!' && mpv /usr/share/sounds/timer/duck.wav" | at "$1"
+}
+
 # Aliases
 alias ls='eza -1 --icons=auto'
 alias fe='exit'
 alias off='shutdown now'
+alias sleep='systemctl suspend'
 alias home='cd ~'
 alias down='cd ~/Downloads'
 alias doc='cd ~/Documents'
+alias window='cd /mnt/E'
